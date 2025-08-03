@@ -1,0 +1,27 @@
+name: Build notes-service
+
+on:
+    push:
+        paths:
+            - 'notes-service/**'
+            - '.github/workflows/notes-service.build.yaml'
+    pull_request:
+        paths:
+            - 'notes-service/**'
+            - '.github/workflows/notes-service.build.yaml'
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        defaults:
+            run:
+                working-directory: notes-service
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v4
+
+            - name: Set up Docker Buildx
+              uses: docker/setup-buildx-action@v3
+
+            - name: Build Docker image
+              run: docker build -t notes-service:latest .
