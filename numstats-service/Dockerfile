@@ -6,4 +6,4 @@ COPY src/ /opt/app/
 
 RUN pip3 install --no-cache-dir -r /opt/app/requirements.txt
 
-ENTRYPOINT ["python3", "app.py"]
+ENTRYPOINT ["fastapi", "run", "app.py"]
