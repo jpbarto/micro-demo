@@ -4,11 +4,11 @@ on:
     push:
         paths:
             - 'fib-service/**'
-            - '.github/workflows/fib-service/build.yaml'
+            - '.github/workflows/fib-service.build.yaml'
     pull_request:
         paths:
             - 'fib-service/**'
-            - '.github/workflows/fib-service/build.yaml'
+            - '.github/workflows/fib-service.build.yaml'
 
 jobs:
     build:

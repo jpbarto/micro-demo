@@ -4,11 +4,11 @@ on:
     push:
         paths:
             - 'prime-service/**'
-            - 'prime-service/.github/workflows/build.yaml'
+            - '.github/workflows/prime-service.build.yaml'
     pull_request:
         paths:
             - 'prime-service/**'
-            - 'prime-service/.github/workflows/build.yaml'
+            - '.github/workflows/prime-service.build.yaml'
 
 jobs:
     build:
