@@ -1,0 +1,27 @@
+name: Build numstats-service
+
+on:
+    push:
+        paths:
+            - 'numstats-service/**'
+            - '.github/workflows/numstats-service.build.yaml'
+    pull_request:
+        paths:
+            - 'numstats-service/**'
+            - '.github/workflows/numstats-service.build.yaml'
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        defaults:
+            run:
+                working-directory: numstats-service
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v4
+
+            - name: Set up Docker Buildx
+              uses: docker/setup-buildx-action@v3
+
+            - name: Build Docker image
+              run: docker build -t numstats-service:latest .
