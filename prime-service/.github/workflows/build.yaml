@@ -1,0 +1,36 @@
+name: Build prime-service
+
+on:
+    push:
+        paths:
+            - 'prime-service/**'
+            - 'prime-service/.github/workflows/build.yaml'
+    pull_request:
+        paths:
+            - 'prime-service/**'
+            - 'prime-service/.github/workflows/build.yaml'
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        defaults:
+            run:
+                working-directory: prime-service
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v4
+
+            - name: Set up Go
+              uses: actions/setup-go@v4
+              with:
+                go-version: '1.21'
+
+            - name: Build Golang binary
+              run: make build
+              working-directory: prime-service/src
+
+            - name: Set up Docker Buildx
+              uses: docker/setup-buildx-action@v3
+
+            - name: Build Docker image
+              run: docker build -t prime-service:latest .
