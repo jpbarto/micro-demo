@@ -51,18 +51,18 @@ jobs:
 
             - name: Load Docker image from build job
               run: |
-              docker pull fib-service:${{ env.TAG }} || docker load < $(docker save fib-service:${{ env.TAG }})
+                docker pull fib-service:${{ env.TAG }} || docker load < $(docker save fib-service:${{ env.TAG }})
 
             - name: Run container
               run: docker run -d --name fib-test -p 8080:8080 fib-service:${{ env.TAG }}
 
             - name: Wait for service to be ready
               run: |
-              for i in {1..10}; do
-                curl -s http://localhost:8080/health && exit 0
-                sleep 2
-              done
-              echo "Service did not become ready in time" && exit 1
+                for i in {1..10}; do
+                  curl -s http://localhost:8080/health && exit 0
+                  sleep 2
+                done
+                echo "Service did not become ready in time" && exit 1
 
             - name: Test service with curl
               run: curl -v http://localhost:8080/fibonacci?number=10
