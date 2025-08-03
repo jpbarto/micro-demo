@@ -1,7 +1,7 @@
 FROM alpine:latest
 
 WORKDIR /opt
-COPY src/fib-service /opt/fib-service
+COPY src/bin/fib-service /opt/fib-service
 
 # Make sure the binary is executable
 RUN chmod +x /opt/fib-service

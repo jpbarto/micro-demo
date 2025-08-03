@@ -1,7 +1,8 @@
 .PHONY: build
 
 build:
-	go build -o fib-service
+	mkdir -p bin
+	go build -o bin/fib-service
 
 clean:
-	rm -f fib-service
+	rm -f bin/fib-service

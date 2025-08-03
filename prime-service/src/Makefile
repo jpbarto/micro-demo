@@ -1,7 +1,8 @@
 .PHONY: build
 
 build:
-	go build -o prime-service
+	mkdir -p bin
+	go build -o bin/prime-service
 
 clean:
-	rm -f prime-service
+	rm -f bin/prime-service
