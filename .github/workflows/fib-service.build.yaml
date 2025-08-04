@@ -36,6 +36,9 @@ jobs:
               id: vars
               run: echo "TAG=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
 
+            - name: Print environment variables
+              run: printenv
+
             - name: Build Docker image
               run: docker build -t fib-service:${TAG} .
 
@@ -48,6 +51,9 @@ jobs:
 
         - name: Set up Docker Buildx
           uses: docker/setup-buildx-action@v3
+
+        - name: Print environment variables
+          run: printenv
 
         - name: Load Docker image from build job
           run: |
