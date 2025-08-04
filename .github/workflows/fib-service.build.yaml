@@ -20,9 +20,6 @@ jobs:
             - name: Checkout repository
               uses: actions/checkout@v4
 
-            - name: List directory contents
-              run: ls -la
-
             - name: Set up Go
               uses: actions/setup-go@v4
               with:
@@ -41,6 +38,9 @@ jobs:
 
             - name: Print environment variables
               run: printenv
+
+            - name: List directory contents
+              run: ls -la
 
             - name: Build and push
               uses: docker/build-push-action@v6
