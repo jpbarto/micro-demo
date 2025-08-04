@@ -39,8 +39,19 @@ jobs:
             - name: Print environment variables
               run: printenv
 
-            - name: Build Docker image
-              run: docker build -t fib-service:${TAG} .
+            - name: Build and push
+              uses: docker/build-push-action@v2
+              with:
+                context: .
+                file: ./Dockerfile
+                tags: fib-service:${TAG}
+                outputs: type=docker,dest=/tmp/fib-service-image.tar
+
+            - name: Upload artifact
+              uses: actions/upload-artifact@v2
+              with:
+                name: fib-service-image
+                path: /tmp/fib-service-image.tar
 
     test:
       needs: build
@@ -52,12 +63,15 @@ jobs:
         - name: Set up Docker Buildx
           uses: docker/setup-buildx-action@v3
 
-        - name: Print environment variables
-          run: printenv
+        - name: Download artifact
+          uses: actions/download-artifact@v2
+          with:
+            name: fib-service-image
+            path: /tmp
 
-        - name: Load Docker image from build job
+        - name: Load Docker image
           run: |
-            docker pull fib-service:${{ env.TAG }} || docker load < $(docker save fib-service:${{ env.TAG }})
+            docker load --input /tmp/fib-service-image.tar
 
         - name: Run container
           run: docker run -d --name fib-test -p 8080:8080 fib-service:${{ env.TAG }}
