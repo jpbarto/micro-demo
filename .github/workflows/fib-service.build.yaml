@@ -13,13 +13,21 @@ on:
 jobs:
     build:
         runs-on: ubuntu-latest
+        defaults:
+            run:
+                working-directory: fib-service
+
         steps:
+            - name: Checkout repository
+              uses: actions/checkout@v4
+
             - name: Set up Docker Buildx
               uses: docker/setup-buildx-action@v3
 
             - name: Build and push
               uses: docker/build-push-action@v6
               with:
+                context: "{{defaultContext}}:fib-service"
                 tags: fib-service
                 outputs: type=docker,dest=${{ runner.temp }}/fib-service-image.tar
 
