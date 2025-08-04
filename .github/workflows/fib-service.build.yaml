@@ -17,35 +17,12 @@ jobs:
             run:
                 working-directory: fib-service
         steps:
-            - name: Checkout repository
-              uses: actions/checkout@v4
-
-            - name: Set up Go
-              uses: actions/setup-go@v4
-              with:
-                go-version: '1.21'
-
-            - name: Build Golang binary
-              run: make build
-              working-directory: fib-service/src
-
             - name: Set up Docker Buildx
               uses: docker/setup-buildx-action@v3
-
-            - name: Set image tag
-              id: vars
-              run: echo "TAG=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
-
-            - name: Print environment variables
-              run: printenv
-
-            - name: List directory contents
-              run: ls -la
 
             - name: Build and push
               uses: docker/build-push-action@v6
               with:
-                context: "{{defaultContext}}:fib-service"
                 tags: fib-service
                 outputs: type=docker,dest=${{ runner.temp }}/fib-service-image.tar
 

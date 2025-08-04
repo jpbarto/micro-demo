@@ -1,10 +1,12 @@
-FROM alpine:latest
+FROM golang:alpine
 
 WORKDIR /opt
-COPY src/bin/fib-service /opt/fib-service
+COPY src/* /opt/fib-service/
 
+WORKDIR /opt/fib-service
+RUN go build -o ./bin/fib-service
 # Make sure the binary is executable
-RUN chmod +x /opt/fib-service
+RUN chmod +x ./bin/fib-service
 
 # Set the entrypoint to run the binary
-ENTRYPOINT ["/opt/fib-service"]
+ENTRYPOINT ["/opt/fib-service/bin/fib-service"]
