@@ -45,6 +45,7 @@ jobs:
             - name: Build and push
               uses: docker/build-push-action@v6
               with:
+                context: .
                 tags: fib-service
                 outputs: type=docker,dest=${{ runner.temp }}/fib-service-image.tar
 
