@@ -20,6 +20,9 @@ jobs:
             - name: Checkout repository
               uses: actions/checkout@v4
 
+            - name: List directory contents
+              run: ls -la
+
             - name: Set up Go
               uses: actions/setup-go@v4
               with:
@@ -43,13 +46,13 @@ jobs:
               uses: docker/build-push-action@v6
               with:
                 tags: fib-service
-                outputs: type=docker,dest=/tmp/fib-service-image.tar
+                outputs: type=docker,dest=${{ runner.temp }}/fib-service-image.tar
 
             - name: Upload artifact
               uses: actions/upload-artifact@v4
               with:
                 name: fib-service-image
-                path: /tmp/fib-service-image.tar
+                path: ${{ runner.temp }}/fib-service-image.tar
 
     test:
       needs: build
