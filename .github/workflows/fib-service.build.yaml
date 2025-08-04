@@ -44,7 +44,7 @@ jobs:
               with:
                 context: .
                 file: ./Dockerfile
-                tags: fib-service:${TAG}
+                tags: fib-service
                 outputs: type=docker,dest=/tmp/fib-service-image.tar
 
             - name: Upload artifact
@@ -74,7 +74,7 @@ jobs:
             docker load --input /tmp/fib-service-image.tar
 
         - name: Run container
-          run: docker run -d --name fib-test -p 8080:8080 fib-service:${{ env.TAG }}
+          run: docker run -d --name fib-test -p 8080:8080 fib-service
 
         - name: Wait for service to be ready
           run: |
