@@ -1,10 +1,12 @@
-FROM alpine:latest
+FROM golang:alpine
 
-# Copy the prime-service binary from src directory to /opt in the container
-COPY src/bin/prime-service /opt/prime-service
+WORKDIR /opt
+COPY src/* /opt/prime-service/
 
+WORKDIR /opt/prime-service
+RUN go build -o ./bin/prime-service
 # Make sure the binary is executable
-RUN chmod +x /opt/prime-service
+RUN chmod +x ./bin/prime-service
 
 # Set the entrypoint to run the binary
-ENTRYPOINT ["/opt/prime-service"]
+ENTRYPOINT ["/opt/prime-service/bin/prime-service"]
