@@ -37,6 +37,5 @@ jobs:
               uses: docker/build-push-action@v6
               with:
                 context: "{{defaultContext}}:fib-service"
-                file: ./fib-service.Dockerfile
                 push: true
                 tags: ghcr.io/${{ github.repository }}/fib-service:${{ env.RELEASE_TAG }}
