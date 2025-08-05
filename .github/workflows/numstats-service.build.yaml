@@ -51,8 +51,8 @@ jobs:
 
         - name: Run container
           run: |
-            docker run -d --name prime-service -p 8081:8080 ghcr.io/jbarto/prime-service:latest
-            docker run -d --name fib-service -p 8082:8080 ghcr.io/jbarto/fib-service:latest
+            docker run -d --name prime-service -p 8081:8080 ghcr.io/jpbarto/micro-demo/prime-service:latest
+            docker run -d --name fib-service -p 8082:8080 ghcr.io/jpbarto/micro-demo/fib-service:latest
             docker run -d --name numstats-test -p 8080:8080 -e FIB_URL=http://localhost:8082 -e PRIME_URL=http://localhost:8081 numstats-service
 
         - name: Wait for service to be ready
