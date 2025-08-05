@@ -7,6 +7,9 @@ on:
 jobs:
     build-and-push:
         runs-on: ubuntu-latest
+        defaults:
+            run:
+                working-directory: fib-service
 
         permissions:
             contents: read
@@ -33,7 +36,7 @@ jobs:
             - name: Build and push Docker image
                 uses: docker/build-push-action@v6
                 with:
-                    context: .
+                    context: "{{defaultContext}}:fib-service"
                     file: ./fib-service.Dockerfile
                     push: true
                     tags: ghcr.io/${{ github.repository }}/fib-service:${{ env.RELEASE_TAG }}
